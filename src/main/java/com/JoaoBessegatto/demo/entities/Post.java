@@ -1,7 +1,7 @@
 package com.JoaoBessegatto.demo.entities;
 
 import com.JoaoBessegatto.demo.dto.AuthorDTO;
-import lombok.AllArgsConstructor;
+import com.JoaoBessegatto.demo.dto.CommentDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,10 +9,12 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,6 +27,16 @@ public class Post implements Serializable {
     private String title;
     private String body;
     private AuthorDTO author;
+
+    private List<CommentDTO> comments = new ArrayList<>();
+
+    public Post(String id, Date data, String title, String body, AuthorDTO author) {
+        this.id = id;
+        this.data = data;
+        this.title = title;
+        this.body = body;
+        this.author = author;
+    }
 
     public void fromPost(Post post){
         this.id = post.id;
