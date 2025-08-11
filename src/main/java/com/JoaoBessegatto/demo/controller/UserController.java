@@ -1,6 +1,7 @@
 package com.JoaoBessegatto.demo.controller;
 
 import com.JoaoBessegatto.demo.dto.UserDTO;
+import com.JoaoBessegatto.demo.entities.Post;
 import com.JoaoBessegatto.demo.entities.User;
 import com.JoaoBessegatto.demo.exceptions.ObjectNotFoundException;
 import com.JoaoBessegatto.demo.services.UserService;
@@ -17,6 +18,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -37,6 +39,12 @@ public class UserController {
         return userService.findById(id)
                 .map(user -> ResponseEntity.ok(new UserDTO(user)))
                 .orElseThrow(() -> new ObjectNotFoundException("Usuário não encontrado"));
+    }
+
+    @GetMapping("{id}/posts")
+    public ResponseEntity<List<Post>>findPost(@PathVariable String id){
+       Optional<User> user = userService.findById(id);
+       return ResponseEntity.ok().body(user.get().getPosts());
     }
     @PostMapping()
     public ResponseEntity<Void>insert(@RequestBody UserDTO userDTO){
