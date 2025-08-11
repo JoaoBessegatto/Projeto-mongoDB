@@ -24,7 +24,11 @@ public class UserService {
                 .toList();
     }
     public Optional<User>findById(String id){
-        return userRepository.findById(id);
+        Optional<User> user = userRepository.findById(id);
+        if (user.isEmpty()){
+            throw new ObjectNotFoundException("User não encontrado");
+        }
+        return user;
     }
     public User insert(User user){
         return userRepository.save(user);

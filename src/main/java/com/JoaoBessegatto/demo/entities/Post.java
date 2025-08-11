@@ -26,6 +26,14 @@ public class Post implements Serializable {
     private String body;
     private AuthorDTO author;
 
+    public void fromPost(Post post){
+        this.id = post.id;
+        this.data = post.data;
+        this.title = post.title;
+        this.body = post.body;
+        this.author = post.author;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
