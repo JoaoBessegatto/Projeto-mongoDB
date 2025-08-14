@@ -7,6 +7,7 @@ import com.JoaoBessegatto.demo.repository.PostRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,5 +21,8 @@ public class PostService {
             throw new ObjectNotFoundException("Post não encontrado");
         }
         return post;
+    }
+    public List<Post>findByTitle(String text){
+        return postRepository.findByTitleContainingIgnoreCase(text);
     }
 }
